@@ -74,13 +74,13 @@ public class InscripcionData {
     
     public ArrayList<Inscripcion> obtenerInscripcionesPorAlumno(int id){
         ArrayList<Inscripcion> inscripciones = new ArrayList();
-        String sql = "SELECT materia.nombre FROM materia JOIN inscripcion ON materia.id_materia=inscripcion.materia WHERE alumnos =?";
+        String sql = "SELECT inscripcion.id_mesa,inscripcion.alumnos,inscripcion.materia,inscripcion.nota FROM materia JOIN inscripcion ON materia.id_materia=inscripcion.materia WHERE alumnos =1;";
         PreparedStatement ps=null;
         try{
             ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = ps.getGeneratedKeys();
             if(rs.next()){
-                Inscripcion insc = new Inscripcion();
+                Inscripcion insc = new Inscripcion();   
                 insc.setId_mesa(id);
                 insc.setAlumno(alumData.buscarAlumno(rs.getInt("id_alumno")));
                 
@@ -99,20 +99,19 @@ public class InscripcionData {
     
     public ArrayList <Materia> obtenerMateriasCursadas(int id){
         ArrayList <Materia> materias = new ArrayList();
-        String sql = "SELECT materia.nombre \n" +
-"FROM materia  JOIN inscripcion ON materia.id_materia = inscripcion.materia WHERE materia.estado = true AND inscripcion.alumnos = ?;";
+        String sql = "SELECT materia.nombre FROM materia  JOIN inscripcion ON materia.id_materia = inscripcion.materia WHERE materia.estado = true AND inscripcion.alumnos= 1";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ResultSet res = ps.getGeneratedKeys();
+            ResultSet rs = ps.getGeneratedKeys();
             ps.setInt(1, id);
-            if(res.next()){
-                Materia mat = new Materia();
-                mat.setId_materia(res.getInt("id_materia"));
-                mat.setNombre(res.getString("nombre"));
-                mat.setAnio(res.getInt("año"));
-                mat.setEstado(true);
-                materias.add(mat);
+            if(rs.next()){
+                Materia mate = new Materia();
+                mate.setId_materia(rs.getInt("id_materia"));
+                mate.setNombre(rs.getString("nombre"));
+                mate.setAño(rs.getInt("año"));
+                mate.setEstado(true);
+                materias.add(mate);
             }
             ps.close();
         } catch (SQLException ex){
@@ -142,6 +141,63 @@ public class InscripcionData {
             JOptionPane.showMessageDialog(null, "Error al Acceder a la tabla Inscripciones."+ex.getMessage());
         }
         return materias;
+    }
+    public void borrarInscripcionMateriaAlumno(int id_alum, int id_mate){
+        String sql = "DELETE FROM inscripcion WHERE alumnos= ? AND materia = ?";
+        PreparedStatement ps = null;
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id_alum);
+            ps.setInt(2, id_mate);
+            int exito = ps.executeUpdate();
+            if(exito == 1){
+                JOptionPane.showMessageDialog(null,"Inscripcion borrada con éxito");
+            }
+            ps.close();
+        } catch(SQLException ex){
+            JOptionPane.showMessageDialog(null,"Error al borrar inscripción "+ex.getMessage());
+        }
+    }
+    public void actualizarNota(int id_alum, int id_mate, double nota){
+        String sql = "UPDATE inscripcion SET nota = 8 WHERE alumnos = ? AND materia = ?;";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setDouble(1, nota);
+            ps.setInt(2, id_alum);
+            ps.setInt(3, id_mate);
+            int exito = ps.executeUpdate();
+            if(exito == 1){
+                JOptionPane.showMessageDialog(null,"Nota actualizada con éxito");
+            }
+            ps.close();
+        } catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error al actualizar nota");
+        }
+    }
+    public ArrayList<Alumnos> obtenerAlumnosXMateria(int id_materia){
+        ArrayList<Alumnos>alumnos = new ArrayList();
+        String sql = "SELECT a.nombre FROM alumno a JOIN inscribir i ON a.id_alumno = i.id_alumno JOIN materia m ON m.id_materia = i.id_materia WHERE i.id_materia = ?";
+        PreparedStatement ps = null;
+        try{
+            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ResultSet res = ps.getGeneratedKeys();
+            ps.setInt(1, id_materia);
+            if(res.next()){
+                Alumnos alumno = new Alumnos();
+                alumno.setId_alumnos(res.getInt("id_alumno"));
+                alumno.setNombre(res.getString("nombre"));
+                alumno.setApellido(res.getString("apellido"));
+                alumno.setDni(res.getInt("dni"));
+                alumno.setFecha_de_nacimiento(res.getDate("fechaNacimiento").toLocalDate());
+                alumno.setEstado(true);
+                alumnos.add(alumno);
+            }
+            ps.close();
+        } catch (SQLException ex){
+            JOptionPane.showMessageDialog(null,"Error al obtener los alumnos "+ex.getMessage());
+        }
+        return alumnos;
     }
     
 }
