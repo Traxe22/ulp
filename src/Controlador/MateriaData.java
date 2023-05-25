@@ -81,7 +81,6 @@ public class MateriaData {
        }
        return materias;
     }
-    
     public void modificarMateria(Materia materia){
         String sql ="UPDATE materia SET nombre=?,año=? WHERE id_materia=?";
         PreparedStatement ps=null;

@@ -10,18 +10,18 @@ package modelo;
  */
 public class Inscripcion {
     private int id_mesa;
-    private Double nota;
+    private double nota;
     private Alumnos alumno;
     private Materia materia;
 
-    public Inscripcion(int id_mesa, Double nota, Alumnos alumno, Materia materia) {
+    public Inscripcion(int id_mesa, double nota, Alumnos alumno, Materia materia) {
         this.id_mesa = id_mesa;
         this.nota = nota;
         this.alumno = alumno;
         this.materia = materia;
     }
 
-    public Inscripcion(Double nota, Alumnos alumno, Materia materia) {
+    public Inscripcion(double nota, Alumnos alumno, Materia materia) {
         this.nota = nota;
         this.alumno = alumno;
         this.materia = materia;
@@ -38,11 +38,11 @@ public class Inscripcion {
         this.id_mesa = id_mesa;
     }
 
-    public Double getNota() {
+    public double getNota() {
         return nota;
     }
 
-    public void setNota(Double nota) {
+    public void setNota(double nota) {
         this.nota = nota;
     }
 
