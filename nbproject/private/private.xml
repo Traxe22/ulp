@@ -3,10 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/G:/Mi%20unidad/Laboratorio/ulp/src/Controlador/MateriaData.java</file>
+            <file>file:/G:/Mi%20unidad/Laboratorio/ulp/src/vista/vistaCargarNota.java</file>
             <file>file:/G:/Mi%20unidad/Laboratorio/ulp/src/vista/Principal.java</file>
+            <file>file:/G:/Mi%20unidad/Laboratorio/ulp/src/modelo/Inscripcion.java</file>
             <file>file:/G:/Mi%20unidad/Laboratorio/ulp/src/vista/vistaAlumnos.java</file>
+            <file>file:/G:/Mi%20unidad/Laboratorio/ulp/src/Controlador/InscripcionData.java</file>
             <file>file:/G:/Mi%20unidad/Laboratorio/ulp/src/Controlador/AlumnosData.java</file>
-            <file>file:/G:/Mi%20unidad/Laboratorio/ulp/src/modelo/Alumnos.java</file>
+            <file>file:/G:/Mi%20unidad/Laboratorio/ulp/src/vista/vistaInscripciones.java</file>
         </group>
     </open-files>
 </project-private>

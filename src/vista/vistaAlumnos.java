@@ -10,7 +10,6 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import modelo.Alumnos;
-import sun.util.calendar.BaseCalendar.Date;
 
 /**
  *
@@ -111,6 +110,12 @@ public class vistaAlumnos extends javax.swing.JInternalFrame {
             }
         });
 
+        jT_Alumnos_id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jT_Alumnos_idActionPerformed(evt);
+            }
+        });
+
         jR_Alumnos_activo.setText("Activo");
 
         jR_Alumnos_Baja.setText("Baja");
@@ -197,7 +202,7 @@ public class vistaAlumnos extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6)
                     .addComponent(jC_Fecha_de_Nacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jT_mostrar_calendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jR_Alumnos_activo)
@@ -301,6 +306,10 @@ public class vistaAlumnos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jB_SalirActionPerformed
+
+    private void jT_Alumnos_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jT_Alumnos_idActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jT_Alumnos_idActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
