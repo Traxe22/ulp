@@ -82,22 +82,23 @@ public class MateriaData {
        return materias;
     }
     public void modificarMateria(Materia materia){
-        String sql ="UPDATE materia SET nombre=?,año=? WHERE id_materia=?";
-        PreparedStatement ps=null;
-        try{
-            ps=con.prepareStatement(sql);
-            ps.setString(1, materia.getNombre());
-            ps.setInt(2, materia.getAño());
-            int exito = ps.executeUpdate();
-            if(exito==1){
-                JOptionPane.showMessageDialog(null, "Modificado Exitosamente.");
-            }else{
-                JOptionPane.showMessageDialog(null, "La Materia no existe");
+        String sql = "UPDATE materia SET nombre=?, año=? WHERE id_materia=?";
+    PreparedStatement ps = null;
+    try{
+        ps = con.prepareStatement(sql);
+        ps.setString(1, materia.getNombre());
+        ps.setInt(2, materia.getAño());
+        ps.setInt(3, materia.getId_materia());
 
-            }
-        }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Materia "+ex.getMessage());
+        int exito = ps.executeUpdate();
+        if(exito == 1){
+            JOptionPane.showMessageDialog(null, "Modificado Exitosamente.");
+        }else{
+            JOptionPane.showMessageDialog(null, "La Materia no existe");
         }
+    }catch(SQLException ex){
+        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Materia " + ex.getMessage());
+    }
     }
     public void eliminarMateria(int id){
         try{

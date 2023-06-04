@@ -4,19 +4,73 @@
  */
 package vista;
 
+import Controlador.*;
+import Controlador.MateriaData;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import modelo.*;
+
 /**
  *
  * @author Hugo
  */
 public class vistaAlumnosMateria extends javax.swing.JInternalFrame {
+    private MateriaData mateData = new MateriaData();
+    private InscripcionData insData = new  InscripcionData();
+    private Inscripcion in = new Inscripcion();
+    private DefaultTableModel modelo = new DefaultTableModel();
 
     /**
      * Creates new form vistaAlumnosMateria
      */
     public vistaAlumnosMateria() {
         initComponents();
+        cargarMaterias();
+        armarCabecera();
+        llenarTabla();
+    }
+    private void cargarMaterias(){
+        List<Materia> materias = mateData.listarMaterias();
+        for (Materia materia : materias) {
+            jCB_lista_de_materia.addItem(materia);
+        }
+    }
+    private void armarCabecera(){
+        ArrayList<String> titulos = new ArrayList<>();
+        titulos.add("ID");
+        titulos.add("Nombre");
+        titulos.add("Nota");
+        
+        modelo = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) { //Las celdas no son editables
+            titulos.add("ID Alumno");
+            titulos.add("ID Materia");
+            titulos.add("Nota");
+            return false;
+        }
+    };
+        for (String titulo : titulos) {
+        modelo.addColumn(titulo);
     }
 
+        jT_Tabla_mostrar_Alumnos.setModel(modelo);
+    }
+    private void llenarTabla(){
+        Materia matSelec = (Materia) jCB_lista_de_materia.getSelectedItem();
+        
+        ArrayList<Alumnos> inscs = insData.obtenerAlumnosXMateria(matSelec.getId_materia());
+        
+        for (Alumnos insc : inscs) {
+            double nota = in.getNota();
+            modelo.addRow(new Object[] {insc.getId_alumnos(), insc.getNombre(),nota});
+        }
+    }
+    private void limpiarTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) jT_Tabla_mostrar_Alumnos.getModel();
+        modelo.setRowCount(0);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,21 +80,88 @@ public class vistaAlumnosMateria extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jCB_lista_de_materia = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jT_Tabla_mostrar_Alumnos = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+
+        jLabel1.setText("Listado de Alumnos por Materia");
+
+        jLabel2.setText("Elegir Materia");
+
+        jT_Tabla_mostrar_Alumnos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jT_Tabla_mostrar_Alumnos);
+
+        jButton1.setText("Salir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(28, 28, 28)
+                            .addComponent(jLabel2)
+                            .addGap(44, 44, 44)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jCB_lista_de_materia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(18, 18, 18)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 467, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(47, 47, 47)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jCB_lista_de_materia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(24, 24, 24))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<Materia> jCB_lista_de_materia;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jT_Tabla_mostrar_Alumnos;
     // End of variables declaration//GEN-END:variables
 }

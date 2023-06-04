@@ -178,29 +178,41 @@ public class InscripcionData {
             JOptionPane.showMessageDialog(null, "Error al actualizar nota");
         }
     }
-    public ArrayList<Alumnos> obtenerAlumnosXMateria(int id_materia){
-        ArrayList<Alumnos>alumnos = new ArrayList();
-        String sql = "SELECT a.nombre FROM alumno a JOIN inscribir i ON a.id_alumno = i.id_alumno JOIN materia m ON m.id_materia = i.id_materia WHERE i.id_materia = ?";
-        PreparedStatement ps = null;
-        try{
-            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ResultSet res = ps.getGeneratedKeys();
-            ps.setInt(1, id_materia);
-            if(res.next()){
-                Alumnos alumno = new Alumnos();
-                alumno.setId_alumnos(res.getInt("id_alumno"));
-                alumno.setNombre(res.getString("nombre"));
-                alumno.setApellido(res.getString("apellido"));
-                alumno.setDni(res.getInt("dni"));
-                alumno.setFecha_de_nacimiento(res.getDate("fechaNacimiento").toLocalDate());
-                alumno.setEstado(true);
-                alumnos.add(alumno);
-            }
-            ps.close();
-        } catch (SQLException ex){
-            JOptionPane.showMessageDialog(null,"Error al obtener los alumnos "+ex.getMessage());
-        }
-        return alumnos;
-    }
     
+    public ArrayList<Alumnos> obtenerAlumnosXMateria(int id_materia){
+    ArrayList<Alumnos> alumnos = new ArrayList<>();
+    String sql = "SELECT alumnos.id_alumnos, alumnos.nombre, inscripcion.nota " +
+                 "FROM alumnos " +
+                 "JOIN inscripcion ON alumnos.id_alumnos = inscripcion.alumnos " +
+                 "JOIN materia ON materia.id_materia = inscripcion.materia " +
+                 "WHERE inscripcion.materia = ?";
+    PreparedStatement ps = null;
+    try {
+        ps = con.prepareStatement(sql);
+        ps.setInt(1, id_materia);
+        ResultSet res = ps.executeQuery();
+        while (res.next()) {
+            int alumnoId = res.getInt("id_alumnos");
+            String nombre = res.getString("nombre");
+            double nota = res.getDouble("nota");
+
+            Alumnos alumno = new Alumnos();
+            alumno.setId_alumnos(alumnoId);
+            alumno.setNombre(nombre);
+
+            Inscripcion inscripcion = new Inscripcion();
+            inscripcion.setNota(nota);
+
+            // Establecer relación entre alumno e inscripción
+            inscripcion.setAlumno(alumno);
+
+            alumnos.add(alumno);
+        }
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al obtener los alumnos: " + ex.getMessage());
+    }
+    return alumnos;
+
+    }
 }

@@ -5,6 +5,8 @@
 package modelo;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -43,6 +45,7 @@ public class Alumnos {
     public int getId_alumnos() {
         return id_alumnos;
     }
+    
 
     public void setId_alumnos(int id_alumnos) {
         this.id_alumnos = id_alumnos;

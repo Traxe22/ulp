@@ -47,7 +47,6 @@ public class vistaAlumnos extends javax.swing.JInternalFrame {
         jButton3 = new javax.swing.JButton();
         jB_Salir = new javax.swing.JButton();
         jBuscar_Alumnos_id = new javax.swing.JButton();
-        j_Buscar_Alumnos_dni = new javax.swing.JButton();
         jT_Alumnos_id = new javax.swing.JTextField();
         jT_Alumnos_dni = new javax.swing.JTextField();
         jT_Alumnos_Nombre = new javax.swing.JTextField();
@@ -100,13 +99,6 @@ public class vistaAlumnos extends javax.swing.JInternalFrame {
         jBuscar_Alumnos_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBuscar_Alumnos_idActionPerformed(evt);
-            }
-        });
-
-        j_Buscar_Alumnos_dni.setText("Buscar");
-        j_Buscar_Alumnos_dni.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                j_Buscar_Alumnos_dniActionPerformed(evt);
             }
         });
 
@@ -164,7 +156,6 @@ public class vistaAlumnos extends javax.swing.JInternalFrame {
                                         .addComponent(jT_Alumnos_id, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(j_Buscar_Alumnos_dni, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jBuscar_Alumnos_id, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(jButton3)
@@ -187,7 +178,6 @@ public class vistaAlumnos extends javax.swing.JInternalFrame {
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(j_Buscar_Alumnos_dni)
                     .addComponent(jT_Alumnos_dni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -244,18 +234,6 @@ public class vistaAlumnos extends javax.swing.JInternalFrame {
     }
         
     }//GEN-LAST:event_jBuscar_Alumnos_idActionPerformed
-
-    private void j_Buscar_Alumnos_dniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_j_Buscar_Alumnos_dniActionPerformed
-        // TODO add your handling code here:
-        try{
-            
-            int dni = Integer.parseInt(jT_Alumnos_dni.getText());
-            System.out.println("-> "+Principal.alum_data.buscarAlumnoPorDni(dni));
-            
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(this, "Error al buscar.");
-        }
-    }//GEN-LAST:event_j_Buscar_Alumnos_dniActionPerformed
 
     private void jB_AgregarAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB_AgregarAlumnosActionPerformed
         // TODO add your handling code here:
@@ -335,6 +313,5 @@ public class vistaAlumnos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jT_Alumnos_dni;
     private javax.swing.JTextField jT_Alumnos_id;
     private javax.swing.JTextField jT_mostrar_calendario;
-    private javax.swing.JButton j_Buscar_Alumnos_dni;
     // End of variables declaration//GEN-END:variables
 }

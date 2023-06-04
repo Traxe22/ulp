@@ -5,8 +5,10 @@
 package vista;
 
 import Controlador.AlumnosData;
+import Controlador.MateriaData;
 import java.awt.Color;
 import modelo.Alumnos;
+import modelo.Materia;
 
 /**
  *
@@ -15,6 +17,8 @@ import modelo.Alumnos;
 public class Principal extends javax.swing.JFrame {
     public static AlumnosData alum_data = new AlumnosData();
     public static Alumnos alumm = new Alumnos();
+    public static Materia mat = new Materia();
+    public static MateriaData matData = new MateriaData();
     /**
      * Creates new form Principal
      */
@@ -47,7 +51,7 @@ public class Principal extends javax.swing.JFrame {
         jM_Manejo_Inscripcion = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        jM_Alumnos_Por_Materia = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
@@ -109,6 +113,11 @@ public class Principal extends javax.swing.JFrame {
         jMenu7.setText("Materia");
 
         jMenuItem3.setText("Agregar Materia");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu7.add(jMenuItem3);
 
         jMenuBar1.add(jMenu7);
@@ -134,14 +143,19 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu4);
 
         jMenu2.setText("Consulta");
-
-        jMenuItem5.setText("Alumnos por Materias");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                jMenu2ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem5);
+
+        jM_Alumnos_Por_Materia.setText("Alumnos por Materias");
+        jM_Alumnos_Por_Materia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jM_Alumnos_Por_MateriaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jM_Alumnos_Por_Materia);
 
         jMenuBar1.add(jMenu2);
 
@@ -196,6 +210,7 @@ public class Principal extends javax.swing.JFrame {
         vistaCargarNota not = new vistaCargarNota();
         not.setVisible(true);
         escritorio.add(not);
+        escritorio.moveToFront(not);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jM_Manejo_InscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jM_Manejo_InscripcionActionPerformed
@@ -206,11 +221,33 @@ public class Principal extends javax.swing.JFrame {
         ins.setVisible(true);
        // ins.getContentPane().setBackground(new Color);
        escritorio.add(ins);
+       escritorio.moveToFront(ins);
     }//GEN-LAST:event_jM_Manejo_InscripcionActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void jM_Alumnos_Por_MateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jM_Alumnos_Por_MateriaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        vistaAlumnosMateria a = new vistaAlumnosMateria();
+        a.setVisible(true);
+        escritorio.add(a);
+        escritorio.moveToFront(a);
+    }//GEN-LAST:event_jM_Alumnos_Por_MateriaActionPerformed
+
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jMenu2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        vistaMaterias m = new vistaMaterias();
+        m.setVisible(true);
+        escritorio.add(m);
+        escritorio.moveToFront(m);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -251,6 +288,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenu jMAlumnos;
     private javax.swing.JMenuItem jM_Agregar_Alumnos;
+    private javax.swing.JMenuItem jM_Alumnos_Por_Materia;
     private javax.swing.JMenuItem jM_Manejo_Inscripcion;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -265,6 +303,5 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     // End of variables declaration//GEN-END:variables
 }
