@@ -44,7 +44,7 @@ public class vistaAlumnos extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jB_AgregarAlumnos = new javax.swing.JButton();
         jB_Limpiar = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jB_Borrar = new javax.swing.JButton();
         jB_Salir = new javax.swing.JButton();
         jBuscar_Alumnos_id = new javax.swing.JButton();
         jT_Alumnos_id = new javax.swing.JTextField();
@@ -55,6 +55,7 @@ public class vistaAlumnos extends javax.swing.JInternalFrame {
         jR_Alumnos_Baja = new javax.swing.JRadioButton();
         jC_Fecha_de_Nacimiento = new com.toedter.calendar.JCalendar();
         jT_mostrar_calendario = new javax.swing.JTextField();
+        jB_Actualizar_alumno = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
 
@@ -86,7 +87,12 @@ public class vistaAlumnos extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton3.setText("jButton3");
+        jB_Borrar.setText("Borrar");
+        jB_Borrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jB_BorrarActionPerformed(evt);
+            }
+        });
 
         jB_Salir.setText("Salir");
         jB_Salir.addActionListener(new java.awt.event.ActionListener() {
@@ -115,6 +121,13 @@ public class vistaAlumnos extends javax.swing.JInternalFrame {
         jC_Fecha_de_Nacimiento.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 jC_Fecha_de_NacimientoPropertyChange(evt);
+            }
+        });
+
+        jB_Actualizar_alumno.setText("Actualizar");
+        jB_Actualizar_alumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jB_Actualizar_alumnoActionPerformed(evt);
             }
         });
 
@@ -154,17 +167,21 @@ public class vistaAlumnos extends javax.swing.JInternalFrame {
                                         .addComponent(jC_Fecha_de_Nacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jT_Alumnos_dni, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jT_Alumnos_id, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jBuscar_Alumnos_id, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jButton3)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jB_Salir))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jT_mostrar_calendario, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(15, 15, 15)))))))
-                .addContainerGap(33, Short.MAX_VALUE))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jBuscar_Alumnos_id, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(jB_Borrar)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jB_Salir))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(jT_mostrar_calendario, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(15, 15, 15)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(90, 90, 90)
+                                        .addComponent(jB_Actualizar_alumno)))))))
+                .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,11 +214,13 @@ public class vistaAlumnos extends javax.swing.JInternalFrame {
                     .addComponent(jLabel7)
                     .addComponent(jR_Alumnos_activo)
                     .addComponent(jR_Alumnos_Baja))
-                .addGap(63, 63, 63)
+                .addGap(23, 23, 23)
+                .addComponent(jB_Actualizar_alumno)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jB_AgregarAlumnos)
                     .addComponent(jB_Limpiar)
-                    .addComponent(jButton3)
+                    .addComponent(jB_Borrar)
                     .addComponent(jB_Salir))
                 .addGap(32, 32, 32))
         );
@@ -289,14 +308,45 @@ public class vistaAlumnos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jT_Alumnos_idActionPerformed
 
+    private void jB_BorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB_BorrarActionPerformed
+        // TODO add your handling code here:
+        int id = Integer.parseInt(jT_Alumnos_id.getText());
+        Principal.alum_data.eliminarAlumno(id);
+        
+            jR_Alumnos_activo.setSelected(false);
+            jR_Alumnos_Baja.setSelected(true);
+        
+    }//GEN-LAST:event_jB_BorrarActionPerformed
+
+    private void jB_Actualizar_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB_Actualizar_alumnoActionPerformed
+        // TODO add your handling code here:
+        int id = Integer.parseInt(jT_Alumnos_id.getText());
+        int dni = Integer.parseInt(jT_Alumnos_dni.getText());
+            String nom = jT_Alumnos_Nombre.getText();
+            String ape = jT_Alumnos_Apellidos.getText();
+            SimpleDateFormat ff = new SimpleDateFormat("dd/MM/yyyy");
+            ff.format(jC_Fecha_de_Nacimiento.getCalendar().getTime());
+            boolean estado = true;
+            if(jR_Alumnos_activo.isSelected()){
+                 estado = true;
+            }
+            if(jR_Alumnos_Baja.isSelected()){
+                estado = false;
+            }
+            LocalDate fechaNacimiento = jC_Fecha_de_Nacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            Alumnos alum = new Alumnos(id,dni, nom, ape, fechaNacimiento, estado);
+            Principal.alum_data.modificarAlumno(alum);
+    }//GEN-LAST:event_jB_Actualizar_alumnoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup botones;
+    private javax.swing.JButton jB_Actualizar_alumno;
     private javax.swing.JButton jB_AgregarAlumnos;
+    private javax.swing.JButton jB_Borrar;
     private javax.swing.JButton jB_Limpiar;
     private javax.swing.JButton jB_Salir;
     private javax.swing.JButton jBuscar_Alumnos_id;
-    private javax.swing.JButton jButton3;
     private com.toedter.calendar.JCalendar jC_Fecha_de_Nacimiento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
