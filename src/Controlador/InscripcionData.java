@@ -203,13 +203,13 @@ public class InscripcionData {
             Inscripcion inscripcion = new Inscripcion();
             inscripcion.setNota(nota);
             
-            // Establecer relación entre alumno e inscripción
+            
             inscripcion.setAlumno(alumno);
 
             alumnos.add(alumno);
 
             // Imprimir los datos del alumno
-            System.out.println("Alumno ID: " + alumnoId + ", Nombre: " + nombre + ", Nota: " + nota);
+            //System.out.println("Alumno ID: " + alumnoId + ", Nombre: " + nombre + ", Nota: " + nota);
         }
         ps.close();
     } catch (SQLException ex) {
