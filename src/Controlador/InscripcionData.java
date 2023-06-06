@@ -202,11 +202,14 @@ public class InscripcionData {
 
             Inscripcion inscripcion = new Inscripcion();
             inscripcion.setNota(nota);
-
+            
             // Establecer relación entre alumno e inscripción
             inscripcion.setAlumno(alumno);
 
             alumnos.add(alumno);
+
+            // Imprimir los datos del alumno
+            System.out.println("Alumno ID: " + alumnoId + ", Nombre: " + nombre + ", Nota: " + nota);
         }
         ps.close();
     } catch (SQLException ex) {
@@ -215,4 +218,64 @@ public class InscripcionData {
     return alumnos;
 
     }
+    
+    public double obtenerNotaInscripcionn(int id_alumno, int id_materia) {
+    String sql = "SELECT nota FROM inscripcion WHERE alumnos = ? AND materia = ?";
+    PreparedStatement ps = null;
+    double nota = 0.0;
+    
+    try {
+        ps = con.prepareStatement(sql);
+        ps.setInt(1, id_alumno);
+        ps.setInt(2, id_materia);
+        ResultSet res = ps.executeQuery();
+        
+        if (res.next()) {
+            nota = res.getDouble("nota");
+        }
+        
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al obtener la nota de inscripción: " + ex.getMessage());
+    }
+    
+    return nota;
+}
+    
+//    public ArrayList<Alumnos> obtenerAlumnosXMateria(int id_materia){
+//    ArrayList<Alumnos> alumnos = new ArrayList<>();
+//    String sql = "SELECT alumnos.id_alumnos, alumnos.nombre, inscripcion.nota " +
+//                 "FROM alumnos " +
+//                 "JOIN inscripcion ON alumnos.id_alumnos = inscripcion.alumnos " +
+//                 "JOIN materia ON materia.id_materia = inscripcion.materia " +
+//                 "WHERE inscripcion.materia = ?";
+//    PreparedStatement ps = null;
+//    try {
+//        ps = con.prepareStatement(sql);
+//        ps.setInt(1, id_materia);
+//        ResultSet res = ps.executeQuery();
+//        while (res.next()) {
+//            int alumnoId = res.getInt("id_alumnos");
+//            String nombre = res.getString("nombre");
+//            double nota = res.getDouble("nota");
+//
+//            Alumnos alumno = new Alumnos();
+//            alumno.setId_alumnos(alumnoId);
+//            alumno.setNombre(nombre);
+//
+//            Inscripcion inscripcion = new Inscripcion();
+//            inscripcion.setNota(nota);
+//
+//            // Establecer relación entre alumno e inscripción
+//            inscripcion.setAlumno(alumno);
+//
+//            alumnos.add(alumno);
+//        }
+//        ps.close();
+//    } catch (SQLException ex) {
+//        JOptionPane.showMessageDialog(null, "Error al obtener los alumnos: " + ex.getMessage());
+//    }
+//    return alumnos;
+//
+//    }
 }

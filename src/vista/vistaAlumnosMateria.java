@@ -8,6 +8,7 @@ import Controlador.*;
 import Controlador.MateriaData;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import modelo.*;
 
@@ -32,9 +33,14 @@ public class vistaAlumnosMateria extends javax.swing.JInternalFrame {
     }
     private void cargarMaterias(){
         List<Materia> materias = mateData.listarMaterias();
-        for (Materia materia : materias) {
-            jCB_lista_de_materia.addItem(materia);
-        }
+    
+    DefaultComboBoxModel<Materia> comboBoxModel = new DefaultComboBoxModel<>();
+    
+    for (Materia materia : materias) {
+        comboBoxModel.addElement(materia);
+    }
+    
+    jCB_lista_de_materia.setModel(comboBoxModel);
     }
     private void armarCabecera(){
         ArrayList<String> titulos = new ArrayList<>();
@@ -59,13 +65,21 @@ public class vistaAlumnosMateria extends javax.swing.JInternalFrame {
     }
     private void llenarTabla(){
         Materia matSelec = (Materia) jCB_lista_de_materia.getSelectedItem();
-        
-        ArrayList<Alumnos> inscs = insData.obtenerAlumnosXMateria(matSelec.getId_materia());
-        
-        for (Alumnos insc : inscs) {
-            double nota = in.getNota();
-            modelo.addRow(new Object[] {insc.getId_alumnos(), insc.getNombre(),nota});
-        }
+
+    ArrayList<Alumnos> alumnos = insData.obtenerAlumnosXMateria(matSelec.getId_materia());
+
+    DefaultTableModel modelo = new DefaultTableModel();
+    modelo.addColumn("ID Alumno");
+    modelo.addColumn("Nombre");
+    modelo.addColumn("Nota");
+
+    for (Alumnos alumno : alumnos) {
+        double nota = insData.obtenerNotaInscripcionn(alumno.getId_alumnos(), matSelec.getId_materia());
+        modelo.addRow(new Object[]{alumno.getId_alumnos(), alumno.getNombre(), nota});
+    }
+
+    jT_Tabla_mostrar_Alumnos.setModel(modelo);
+
     }
     private void limpiarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) jT_Tabla_mostrar_Alumnos.getModel();
@@ -90,6 +104,12 @@ public class vistaAlumnosMateria extends javax.swing.JInternalFrame {
         jLabel1.setText("Listado de Alumnos por Materia");
 
         jLabel2.setText("Elegir Materia");
+
+        jCB_lista_de_materia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCB_lista_de_materiaActionPerformed(evt);
+            }
+        });
 
         jT_Tabla_mostrar_Alumnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -154,6 +174,12 @@ public class vistaAlumnosMateria extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jCB_lista_de_materiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_lista_de_materiaActionPerformed
+        // TODO add your handling code here:
+        limpiarTabla();
+        llenarTabla();
+    }//GEN-LAST:event_jCB_lista_de_materiaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
