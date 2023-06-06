@@ -296,6 +296,7 @@ public class vistaAlumnos extends javax.swing.JInternalFrame {
         jT_Alumnos_Nombre.setText("");
         jT_Alumnos_Apellidos.setText("");
         jT_Alumnos_dni.setText("");
+        jT_mostrar_calendario.setText("");
         
     }//GEN-LAST:event_jB_LimpiarActionPerformed
 
